@@ -1,5 +1,21 @@
-<button class="btn btn-primary"
-[disabled]="!allowNewServer">Add Server</button>
-<p [innerText]="allowNewServer"></p>
-<app-server></app-server>
-<app-server></app-server>
+<label for="serverInput">Server Name</label>
+
+<!-- handmatig 2 way data binding -->
+<!-- <input id="serverInput" type="text"class="form-control"(input)="onUpdateServerName($event)"> -->
+
+<input type="text" class="form-control mb-5" [(ngModel)]="serverName">
+<!-- <p>{{ serverName }}</p> -->
+<br>
+<button class="btn btn-primary m-3"
+[disabled]="!allowNewServer" 
+(click)="onCreateServer()">Add Server</button>
+<!-- <p [innerText]="allowNewServer"></p> -->
+<br>
+<p *ngIf="serverCreated; else noServer">Server was created, server name is {{ serverName }}</p>
+<ng-template #noServer>
+    <p>No Server was created.</p>
+</ng-template>
+<!-- <output class="form-control">{{ serverCreationStatus }}</output> -->
+
+<app-server *ngFor="let server of servers; let i = index"></app-server>
+
